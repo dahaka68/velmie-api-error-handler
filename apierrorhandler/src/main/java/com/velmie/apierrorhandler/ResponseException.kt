@@ -1,4 +1,4 @@
-package com.velmie.apierrorhandler.exceptions
+package com.velmie.apierrorhandler
 
 import java.lang.RuntimeException
 

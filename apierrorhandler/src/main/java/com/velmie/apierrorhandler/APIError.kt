@@ -1,6 +1,4 @@
-package com.velmie.apierrorhandler.api.apiInterface
-
-import com.velmie.apierrorhandler.APIErrorTarget
+package com.velmie.apierrorhandler
 
 interface APIError {
 
@@ -17,6 +15,8 @@ interface APIError {
     fun getSource(): Map<String, String>?
 
     fun hasMessage(): Boolean
+
+    fun hasSource(): Boolean
 
     fun getCause(): Throwable
 }
