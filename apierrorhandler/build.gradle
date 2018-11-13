@@ -1,3 +1,4 @@
+//
 apply plugin: 'com.android.library'
 
 android {
@@ -10,7 +11,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
@@ -21,11 +21,43 @@ android {
     }
 }
 
+configurations {
+    ktlint
+}
+
 dependencies {
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    ktlint "com.github.shyiko:ktlint:0.29.0"
 }
 
-repositories {
-    mavenCentral()
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "src/**/*.kt", "--reporter=html,artifact=com.github.mcassiano:ktlint-html-reporter:master-SNAPSHOT,output=${buildDir}/reports/ktlint/ktlint.html"
 }
+//check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    classpath = configurations.ktlint
+    main = "com.github.shyiko.ktlint.Main"
+    args "-F", "src/**/*.kt"
+}
+
+//ktlint {
+//    version = ""
+//    debug = true
+//    verbose = true
+//    outputToConsole = true
+//    reporters = [ReporterType.PLAIN, ReporterType.CHECKSTYLE]
+////    ruleSets = [
+////            "/path/to/custom/rulseset.jar",
+////            "com.github.username:rulseset:master-SNAPSHOT"
+////    ]
+//    filter {
+//        exclude("**/generated/**")
+//        include("**/kotlin/**")
+//    }
+//}
