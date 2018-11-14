@@ -17,7 +17,6 @@ object ProcessedAPIErrorContainerSpec : Spek({
             val singleError = SingleProcessedAPIError("unknown_code", APIErrorTarget.FIELD)
             val errorContainer = ProcessedAPIErrorContainer(arrayOf(singleError))
 
-
             assertEquals(singleError.getCode(), errorContainer.getCode())
             assertEquals(singleError.getTarget(), errorContainer.getTarget())
             assertEquals(singleError.getMessage(), errorContainer.getMessage())
