@@ -3,38 +3,38 @@ package com.velmie.apierrorhandler
 class RequestError(private val error: Throwable) : APIError {
 
     override fun hasSource(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return getSource() != null
     }
 
     override fun getCode(): String {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return "wrong_request"
     }
 
     override fun getTarget(): APIErrorTarget {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return APIErrorTarget.COMMON
     }
 
     override fun isTargetField(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return false
     }
 
     override fun isTargetCommon(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return true
     }
 
     override fun getMessage(): String? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return error.message
     }
 
     override fun getSource(): Map<String, String>? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return null
     }
 
     override fun hasMessage(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return !error.message.isNullOrEmpty()
     }
 
-    override fun getCause(): Throwable? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    override fun getCause(): Throwable {
+        return error
     }
 }

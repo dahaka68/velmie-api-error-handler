@@ -1,40 +1,52 @@
 package com.velmie.apierrorhandler
 
-open class SingleProcessedAPIError(error: SingleProcessedAPIError) : ResponseError {
+open class SingleProcessedAPIError(
+        private val code: String,
+        private val target: APIErrorTarget,
+        private val source: Map<String, String>? = null,
+        private val message: String? = null,
+        private val cause: ResponseException? = null) : ResponseError {
+
+    constructor(error: SingleProcessedAPIError)
+            : this(error.code, error.target, error.source, error.message, error.cause)
 
     override fun getCode(): String {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return code
     }
 
     override fun getTarget(): APIErrorTarget {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return if (target.body == APIErrorTarget.COMMON.body) {
+            APIErrorTarget.COMMON
+        } else {
+            APIErrorTarget.FIELD
+        }
     }
 
     override fun isTargetField(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return APIErrorTarget.FIELD.body == target.body
     }
 
     override fun isTargetCommon(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return APIErrorTarget.COMMON.body == target.body
     }
 
     override fun getMessage(): String? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return message
     }
 
     override fun getSource(): Map<String, String>? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return source
     }
 
     override fun hasMessage(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return !message.isNullOrEmpty()
     }
 
     override fun hasSource(): Boolean {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return getSource() != null
     }
 
     override fun getCause(): ResponseException? {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return cause
     }
 }

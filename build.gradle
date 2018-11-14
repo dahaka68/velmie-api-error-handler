@@ -26,6 +26,10 @@ dependencies {
 
     // include Spek 2 JUnit test engine
     testRuntimeOnly 'org.spekframework.spek2:spek-runner-junit5:2.0.0-alpha.1'
+
+   /* implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.5.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.5.3'*/
 }
 
 test {
