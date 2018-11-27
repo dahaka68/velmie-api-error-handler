@@ -7,7 +7,7 @@ class APIErrorHandler {
     fun handle(exception: ResponseException,
                converter: Converter<String, ProcessedAPIErrorContainer?>): APIError {
         return if (isErrorBodyFormatted(exception, converter)) {
-            ProcessedAPIErrorContainer(converter.convert(exception.getBody())?.errors
+            ProcessedAPIErrorContainer(converter.convert(exception.body)?.errors
                     ?: emptyArray()) // или можно !!
         } else {
             UnprocessedAPIError(exception)
@@ -22,7 +22,7 @@ class APIErrorHandler {
             exception: ResponseException,
             converter: Converter<String, ProcessedAPIErrorContainer?>
     ): Boolean {
-        val errorBody = converter.convert(exception.getBody())
+        val errorBody = converter.convert(exception.body)
         return !errorBody?.getCode().isNullOrEmpty() && errorsBody.getTarget().body.isNotEmpty()
     }
 }

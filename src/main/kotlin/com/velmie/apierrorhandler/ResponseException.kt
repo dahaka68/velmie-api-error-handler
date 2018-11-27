@@ -2,9 +2,4 @@ package com.velmie.apierrorhandler
 
 import java.lang.RuntimeException
 
-class ResponseException(private val code: Int, private val body: String) : RuntimeException() {
-
-    fun getCode() = code
-
-    fun getBody() = body
-}
+class ResponseException(val code: Int, val body: String) : RuntimeException()
